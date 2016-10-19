@@ -86,7 +86,7 @@ func DivideFixInt64(a, b int64) int64 {
 
 // a**b, b>=0
 func PowInt64(a, b int64) int64 {
-	p := 1
+	p := int64(1)
 	for b > 0 {
 		if b&1 != 0 {
 			p *= a
