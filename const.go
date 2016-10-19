@@ -29,3 +29,31 @@ const (
 	// MinInt is int minimum value as untyped constant
 	MinInt = -MaxInt - 1
 )
+
+const (
+	Uint8Bytes = 1
+	Uint8Bits  = Uint8Bytes * 8
+	Int8Bytes  = Uint8Bytes
+	Int8Bits   = Uint8Bits
+)
+
+const (
+	Uint16Bytes = 2
+	Uint16Bits  = Uint16Bytes * 8
+	Int16Bytes  = Uint16Bytes
+	Int16Bits   = Uint16Bits
+)
+
+const (
+	Uint32Bytes = 4
+	Uint32Bits  = Uint32Bytes * 8
+	Int32Bytes  = Uint32Bytes
+	Int32Bits   = Uint32Bits
+)
+
+const (
+	Uint64Bytes = 8
+	Uint64Bits  = Uint64Bytes * 8
+	Int64Bytes  = Uint64Bytes
+	Int64Bits   = Uint64Bits
+)
