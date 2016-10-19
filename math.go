@@ -83,3 +83,30 @@ func DivideFixInt64(a, b int64) int64 {
 	}
 	return DivideInt64(a, b)
 }
+
+// a**b, b>=0
+func PowInt64(a, b int64) int64 {
+	p := 1
+	for b > 0 {
+		if b&1 != 0 {
+			p *= a
+		}
+		b >>= 1
+		a *= a
+	}
+	return p
+}
+
+// Modular integer power: compute a**b mod m using binary powering algorithm
+func PowModInt64(a, b, m int64) int64 {
+	a = a % m
+	p := 1 % m
+	for b > 0 {
+		if b&1 != 0 {
+			p = (p * a) % m
+		}
+		b >>= 1
+		a = (a * a) % m
+	}
+	return p
+}
