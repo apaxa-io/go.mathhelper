@@ -6,11 +6,7 @@ import (
 	"testing"
 )
 
-var testsDivideInt64 []struct {
-	a int64
-	b int64
-	r int64
-} = []struct {
+var testsDivideInt64 = []struct {
 	a int64
 	b int64
 	r int64
@@ -90,7 +86,7 @@ func TestDivideInt64(t *testing.T) {
 		if test.a == math.MinInt64 && test.b == -1 {
 			continue
 		}
-		if r := DivideInt64(test.a, test.b); r != test.r {
+		if r := DivideRoundInt64(test.a, test.b); r != test.r {
 			t.Errorf("Error Divide(%v, %v) - expected %v, got %v", test.a, test.b, test.r, r)
 		}
 	}
@@ -98,7 +94,7 @@ func TestDivideInt64(t *testing.T) {
 
 func TestDivideFixInt64(t *testing.T) {
 	for _, test := range testsDivideInt64 {
-		if r := DivideFixInt64(test.a, test.b); r != test.r {
+		if r := DivideRoundFixInt64(test.a, test.b); r != test.r {
 			t.Errorf("Error DivideFix(%v, %v) - expected %v, got %v", test.a, test.b, test.r, r)
 		}
 	}
@@ -148,7 +144,7 @@ func TestDivideInt64Overflow(t *testing.T) {
 				continue
 			}
 			validR := divideInt64Big(a, b)
-			r := DivideInt64(a, b)
+			r := DivideRoundInt64(a, b)
 			if r != validR {
 				t.Errorf("Error Divide(%v, %v) - got %v, expected %v", a, b, r, validR)
 			}
@@ -163,7 +159,7 @@ func TestDivideFixInt64Overflow(t *testing.T) {
 				continue
 			}
 			validR := divideInt64Big(a, b)
-			r := DivideFixInt64(a, b)
+			r := DivideRoundFixInt64(a, b)
 			if r != validR {
 				t.Errorf("Error DivideFix(%v, %v) - got %v, expected %v", a, b, r, validR)
 			}
@@ -191,12 +187,12 @@ func BenchmarkAntiAbsInt64(b *testing.B) {
 
 func BenchmarkDivideInt64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		DivideInt64(testsInt64[i%testsLen], testsInt64[(i+testsLen/4)%(testsLen-1)+1]) // -+1 is to avoid division by zero
+		DivideRoundInt64(testsInt64[i%testsLen], testsInt64[(i+testsLen/4)%(testsLen-1)+1]) // -+1 is to avoid division by zero
 	}
 }
 
 func BenchmarkDivideFixInt64(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		DivideFixInt64(testsInt64[i%testsLen], testsInt64[(i+testsLen/4)%(testsLen-1)+1]) // -+1 is to avoid division by zero
+		DivideRoundFixInt64(testsInt64[i%testsLen], testsInt64[(i+testsLen/4)%(testsLen-1)+1]) // -+1 is to avoid division by zero
 	}
 }

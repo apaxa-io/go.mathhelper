@@ -8,7 +8,7 @@ import (
 const testSegmentsLen = 5
 const testsLen = testSegmentsLen*6 + 1
 
-var testsInt64 []int64 = []int64{0}
+var testsInt64 = []int64{0}
 
 func init() {
 	for i := int64(0); i < testSegmentsLen; i++ {

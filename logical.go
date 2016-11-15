@@ -1,5 +1,14 @@
 package mathhelper
 
+//replacer:ignore
+//go:generate go run $GOPATH/src/github.com/apaxa-io/tools-replacer/main.go -- $GOFILE
+//replacer:replace
+//replacer:old int64	Int64
+//replacer:new int	Int
+//replacer:new int8	Int8
+//replacer:new int16	Int16
+//replacer:new int32	Int32
+
 // false => 0, true => 1
 func BtoInt64(b bool) int64 {
 	//*(*byte)(unsafe.Pointer(&i)) = *(*byte)(unsafe.Pointer(&b))
@@ -95,6 +104,10 @@ func SameSignInt64(a, b int64) int64 {
 	return 1
 }
 
+func NotSameSignInt64(a, b int64) int64 {
+	return NotInt64(SameSignInt64(a, b))
+}
+
 // a==b
 func EqualInt64(a, b int64) int64 {
 	return ZeroInt64(a ^ b)
@@ -136,7 +149,7 @@ func NotGreaterInt64(a, b int64) int64 {
 
 // a<b
 func LessInt64(a, b int64) int64 {
-	return BtoInt64(a < b)	// Looks better when in other function
+	return BtoInt64(a < b) // Looks better when in other function
 
 	//return GreaterInt64(b, a)
 

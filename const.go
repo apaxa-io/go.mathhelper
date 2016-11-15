@@ -35,6 +35,10 @@ const (
 	Uint8Bits  = Uint8Bytes * 8
 	Int8Bytes  = Uint8Bytes
 	Int8Bits   = Uint8Bits
+	MaxUint8   = (1 << Uint8Bits) - 1
+	MinUint8   = 0
+	MaxInt8    = MaxUint8 >> 1
+	MinInt8    = -MaxInt8 - 1
 )
 
 const (
@@ -42,6 +46,10 @@ const (
 	Uint16Bits  = Uint16Bytes * 8
 	Int16Bytes  = Uint16Bytes
 	Int16Bits   = Uint16Bits
+	MaxUint16   = (1 << Uint16Bits) - 1
+	MinUint16   = 0
+	MaxInt16    = MaxUint16 >> 1
+	MinInt16    = -MaxInt16 - 1
 )
 
 const (
@@ -49,6 +57,10 @@ const (
 	Uint32Bits  = Uint32Bytes * 8
 	Int32Bytes  = Uint32Bytes
 	Int32Bits   = Uint32Bits
+	MaxUint32   = (1 << Uint32Bits) - 1
+	MinUint32   = 0
+	MaxInt32    = MaxUint32 >> 1
+	MinInt32    = -MaxInt32 - 1
 )
 
 const (
@@ -56,4 +68,8 @@ const (
 	Uint64Bits  = Uint64Bytes * 8
 	Int64Bytes  = Uint64Bytes
 	Int64Bits   = Uint64Bits
+	MaxUint64   = (1 << Uint64Bits) - 1
+	MinUint64   = 0
+	MaxInt64    = MaxUint64 >> 1
+	MinInt64    = -MaxInt64 - 1
 )

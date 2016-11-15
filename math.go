@@ -1,8 +1,17 @@
 package mathhelper
 
-import "math"
+//replacer:ignore
+//go:generate go run $GOPATH/src/github.com/apaxa-io/tools-replacer/main.go -- $GOFILE
+//replacer:replace
+//replacer:old int64	Int64
+//replacer:new int	Int
+//replacer:new int8	Int8
+//replacer:new int16	Int16
+//replacer:new int32	Int32
 
-// Does not work for MinInt** (because MinInt** * -1 = MinInt**)
+
+
+// Does not work for MinInt64 (because MinInt64 * -1 = MinInt64)
 func AbsInt64(i int64) int64 {
 	return (-2*NegativeInt64(i) + 1) * i
 
@@ -13,10 +22,10 @@ func AbsInt64(i int64) int64 {
 }
 
 func AbsFixInt64(i int64) int64 {
-	return math.MaxInt64*EqualInt64(i, math.MinInt64) + AbsInt64(i)*NotEqualInt64(i, math.MinInt64)
+	return MaxInt64*EqualInt64(i, MinInt64) + AbsInt64(i)*NotEqualInt64(i, MinInt64)
 
-	//if i == math.MinInt64 {
-	//	return math.MaxInt64
+	//if i == MinInt64 {
+	//	return MaxInt64
 	//}
 	//return AbsInt64(i)
 }
@@ -30,7 +39,10 @@ func AntiAbsInt64(i int64) int64 {
 	return i
 }
 
-func DivideInt64(a, b int64) (c int64) {
+// DivideRoundInt64 divide a to b and round result to nearest.
+// -3 / -2 =  2
+// -3 /  2 = -2
+func DivideRoundInt64(a, b int64) (c int64) {
 	c = a / b
 	delta := AntiAbsInt64(a % b)
 	if b < 0 && delta < (b+1)/2 {
@@ -77,11 +89,19 @@ func DivideInt64(a, b int64) (c int64) {
 	//return
 }
 
-func DivideFixInt64(a, b int64) int64 {
-	if a == math.MinInt64 && b == -1 {
-		return math.MaxInt64
+func DivideRoundFixInt64(a, b int64) int64 {
+	if a == MinInt64 && b == -1 {
+		return MaxInt64
 	}
-	return DivideInt64(a, b)
+	return DivideRoundInt64(a, b)
+}
+
+// DivideCeilInt64 divide a to b and round result to nearest not less number.
+// A.k.a. round up, round towards plus infinity.
+// -3 / -2 =  2
+// -3 /  2 = -1
+func DivideCeilInt64(a, b int64) int64 {
+	return a/b + NotZeroInt64(a%b)*SameSignInt64(a, b)
 }
 
 // a**b, b>=0
